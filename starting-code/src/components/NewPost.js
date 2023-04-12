@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import classes from './NewPost.module.css';
 
 function NewPost() {
@@ -11,12 +12,12 @@ function NewPost() {
 
   async function submitHandler(event) {
     event.preventDefault();
-    
+
     setIsSendingRequest(true);
 
     await fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'Post',
-      body: JSON.stringify({ title: enteredTitle })
+      method: 'POST',
+      body: JSON.stringify({ title: enteredTitle }),
     });
 
     setIsSendingRequest(false);
@@ -27,13 +28,11 @@ function NewPost() {
     <form onSubmit={submitHandler} className={classes.form}>
       <div>
         <label>Title</label>
-        <input 
-          type="text" 
-          onChange={updateTitleHandler}
-          value={enteredTitle} />
+        <input type="text" onChange={updateTitleHandler} value={enteredTitle} />
       </div>
       <button disabled={isSendingRequest}>
-        {isSendingRequest ? 'Saving...' : 'Save'}</button>
+        {isSendingRequest ? 'Saving...' : 'Save'}
+      </button>
     </form>
   );
 }
